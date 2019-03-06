@@ -1,0 +1,56 @@
+# vim
+*.swp
+*.swo
+
+# VS Code
+.vscode/
+.vs/
+
+# IntelliJ
+.idea/
+!.idea/checkstyle-idea.xml
+!.idea/vakt-checkstyle.xml
+!.idea/codeStyles/
+*.ipr
+*.iml
+*.iws
+*.etrm-rabbit-client-app/.idea
+
+# Build
+vendor/
+build/
+dist/
+work/
+etrm-rabbit-client-app/target/
+out/
+
+# OS
+.DS_Store
+
+# Temporary
+run/pids/
+run/logs/
+*.log
+.tmp
+.rakeTasks
+*.bak
+*.jks
+*.crt
+
+# State bucket state
+.git-crypt
+
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# Bundle
+.bundle
+
