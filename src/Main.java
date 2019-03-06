@@ -20,8 +20,11 @@ public class Main {
     public static void main(String args[]){
 
         try {
+
+            String id = genId();
+            jsonMessage = jsonMessage.replace("XXXXXXXX", id);
+            sendMessage(id, jsonMessage);
             
-            sendMessage();
             getAllMessages();
             
         } catch ( Exception e){
@@ -30,9 +33,7 @@ public class Main {
 
     }
     
-    private static void sendMessage() throws Exception {
-        String id = genId();
-        jsonMessage = jsonMessage.replace("XXXXXXXX", id);
+    private static void sendMessage(String id, String jsonMessage) throws Exception {
         AMQP.BasicProperties amqpProperties = getAmqpProperties(id);
         Connection connection = open();
         Channel channel = connection.createChannel();
