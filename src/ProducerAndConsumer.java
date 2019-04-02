@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Main {
+public class ProducerAndConsumer {
     
     static final String host = "";
     static final int    port = 5672;
@@ -15,7 +15,8 @@ public class Main {
     static final String queueName = "";
     static final String queueNameReplyTo = "";
     static final String exchangeName = "";
-    static       String jsonMessage = "";
+
+    static String jsonMessage = "";
     
     public static void main(String args[]){
 
