@@ -1,10 +1,6 @@
 import com.rabbitmq.client.*;
 
 import java.io.IOException;
-import java.security.SecureRandom;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Consumer {
 

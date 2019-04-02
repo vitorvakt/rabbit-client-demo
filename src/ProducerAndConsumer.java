@@ -1,4 +1,5 @@
 import com.rabbitmq.client.*;
+import com.rabbitmq.client.Consumer;
 
 import java.io.IOException;
 import java.security.SecureRandom;
