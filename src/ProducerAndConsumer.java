@@ -34,7 +34,7 @@ public class ProducerAndConsumer {
     static final String RABBITMQ_EXCHANGE_NAME = "";
 
     // Flag that will be used to connect to RabbitMQ Server using SSL, default value is true
-    static final boolean RABBITMQ_ENABLE_SSL = false;
+    static final boolean RABBITMQ_ENABLE_SSL = true;
 
     // Queue's name that will be used to send a message into RabbitMQ Server
     static final String RABBITMQ_QUEUE_NAME = "";
@@ -99,7 +99,7 @@ public class ProducerAndConsumer {
         factory.setUsername(RABBITMQ_USERNAME);
         factory.setPassword(RABBITMQ_PASSWORD);
         if(!RABBITMQ_VIRTUAL_HOST_NAME.trim().equals("")) {
-            factory.setVirtualHost("shell");
+            factory.setVirtualHost(RABBITMQ_VIRTUAL_HOST_NAME);
         }
         if(RABBITMQ_ENABLE_SSL) {
             factory.useSslProtocol();
