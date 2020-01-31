@@ -28,7 +28,7 @@ public class ProducerAndConsumer {
     static final String RABBITMQ_PASSWORD = "";
 
     // Virtual host's name that will be used to connect to RabbitMQ Server, default value is empty
-    static final String RABBITMQ_VIRTUAL_HOST_NAME = "";
+    static final String RABBITMQ_VIRTUAL_HOST_NAME = "/";
 
     // Exchange's name that will be used to connect to RabbitMQ Server, default value is empty
     static final String RABBITMQ_EXCHANGE_NAME = "";
@@ -37,14 +37,16 @@ public class ProducerAndConsumer {
     static final boolean RABBITMQ_ENABLE_SSL = true;
 
     // Queue's name that will be used to send a message into RabbitMQ Server
-    static final String RABBITMQ_QUEUE_NAME = "";
+    static final String RABBITMQ_QUEUE_NAME = "etrm_to_vakt";
 
     // Queue's name that will be used to receive a message from RabbitMQ Server
-    static final String RABBITMQ_REPLY_QUEUE_NAME = "";
+    static final String RABBITMQ_REPLY_QUEUE_NAME = "vakt_to_etrm";
+
 
     // Json Message that send to queue
     static String jsonMessage = "";
-    
+
+
     public static void main(String args[]){
 
         try {
@@ -53,10 +55,14 @@ public class ProducerAndConsumer {
             String id = "some_id";
             
             // Create the specific action to identify the message's content
-            String action = "create";
+            String action = "ADD_TRADE";
+
+            String legalEntity = "";
+
+            String version = "v2";
             
             // Method to send a message
-            sendMessage(id, action, jsonMessage);
+            sendMessage(id, action, version, legalEntity, jsonMessage);
             
             // Method to read all messages on reply queue
             getAllMessages();
@@ -66,9 +72,10 @@ public class ProducerAndConsumer {
         }
 
     }
+
     
-    private static void sendMessage(String id, String action, String jsonMessage) throws Exception {
-        AMQP.BasicProperties amqpProperties = getAmqpProperties(id, action);
+    private static void sendMessage(String id, String action, String version, String legalEntity, String jsonMessage) throws Exception {
+        AMQP.BasicProperties amqpProperties = getAmqpProperties(id, action, version, legalEntity);
         Connection connection = openConnection();
         Channel channel = connection.createChannel();
         channel.basicPublish(RABBITMQ_EXCHANGE_NAME, RABBITMQ_QUEUE_NAME, amqpProperties, jsonMessage.getBytes());
@@ -107,10 +114,12 @@ public class ProducerAndConsumer {
         return factory.newConnection();
     }
 
-    private static AMQP.BasicProperties getAmqpProperties(String id, String action) throws Exception{
+    private static AMQP.BasicProperties getAmqpProperties(String id, String action, String version, String legalEntity) throws Exception{
         Map<String, Object> headers = new HashMap<String, Object>();
         headers.put("correlationId", id);
         headers.put("action", action);
+        headers.put("legalEntity",legalEntity);
+        headers.put("version",version);
         return new AMQP.BasicProperties.Builder()
                 .messageId(id)
                 .deliveryMode(2)
